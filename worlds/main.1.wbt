@@ -1,0 +1,293 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 0.014506499781694198 -0.002635261000001494 1.0950519128687066
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 5 5
+}
+Solid {
+  translation 0 -0.005509821033052251 0.21935687294843978
+  rotation 1 0 0 0.26099494569041276
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.2 0.2
+        metalness 0.1
+      }
+      geometry DEF ball_shape Sphere {
+        radius 0.02
+        subdivision 4
+      }
+    }
+  ]
+  name "ball"
+  boundingObject USE ball_shape
+  physics Physics {
+    density -1
+    mass 0.0027
+  }
+}
+Robot {
+  translation 0 0 0.1
+  rotation 1 0 0 0.005
+  children [
+    Pose {
+      translation 0 0 0.55
+      rotation 0 1 0 1.5708
+      children [
+        Camera {
+          width 1280
+          height 720
+          lens Lens {
+          }
+          focus Focus {
+          }
+          zoom Zoom {
+          }
+          recognition Recognition {
+          }
+        }
+      ]
+    }
+    Pose {
+      translation -0.11 -0.13 0.12
+      children [
+        SliderJoint {
+          jointParameters JointParameters {
+            position 0.11000000000104976
+            axis 1 0 0
+            minStop 0.02
+            maxStop 0.2
+          }
+          device [
+            LinearMotor {
+              name "bottom_bat_motor"
+              minPosition 0.02
+              maxPosition 0.2
+            }
+          ]
+          endPoint Solid {
+            translation 0.11000000000104976 0 0
+            children [
+              SliderJoint {
+                jointParameters JointParameters {
+                  position 0.009999999632126597
+                  axis 0 1 0
+                }
+                device [
+                  LinearMotor {
+                    name "bottom_rack"
+                    maxVelocity 100
+                  }
+                ]
+                endPoint Solid {
+                  translation 0 0.009999999632126597 0
+                  children [
+                    DEF rack_shape Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.2 0.6 0.2
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.005 0.03
+                      }
+                    }
+                  ]
+                  name "Bottom Bat"
+                  boundingObject USE rack_shape
+                  physics Physics {
+                  }
+                }
+              }
+              DEF bottom_bat Shape {
+                appearance PBRAppearance {
+                  baseColor 1 1 0
+                  metalness 0.1
+                }
+                geometry Box {
+                  size 0.05 0.005 0.03
+                }
+              }
+            ]
+            name "Bottom Bat Base"
+            boundingObject USE bottom_bat
+            physics Physics {
+            }
+          }
+        }
+      ]
+    }
+    Pose {
+      translation 0.11 0.13 0.12
+      rotation 0 0 1 3.14
+      children [
+        SliderJoint {
+          jointParameters JointParameters {
+            position 0.11000000507930541
+            axis 1 0 0
+            minStop 0.02
+            maxStop 0.2
+          }
+          device [
+            LinearMotor {
+              name "top_bat_motor"
+              minPosition 0.02
+              maxPosition 0.2
+            }
+          ]
+          endPoint Solid {
+            translation 0.11000000507930541 0 0
+            children [
+              SliderJoint {
+                jointParameters JointParameters {
+                  position 0.009999999999923893
+                  axis 0 1 0
+                }
+                device [
+                  LinearMotor {
+                    name "top_rack"
+                    maxVelocity 100
+                  }
+                ]
+                endPoint Solid {
+                  translation 0 0.009999999999923893 0
+                  children [
+                    DEF rack_shape Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.2 0.6 0.2
+                        metalness 0.1
+                      }
+                      geometry Box {
+                        size 0.05 0.005 0.03
+                      }
+                    }
+                  ]
+                  name "Top  Bat"
+                  boundingObject USE rack_shape
+                  physics Physics {
+                  }
+                }
+              }
+              DEF bottom_bat Shape {
+                appearance PBRAppearance {
+                  baseColor 1 1 0
+                  metalness 0.1
+                }
+                geometry Box {
+                  size 0.05 0.005 0.03
+                }
+              }
+            ]
+            name "Top Bat Base"
+            boundingObject USE bottom_bat
+            physics Physics {
+            }
+          }
+        }
+      ]
+    }
+    Group {
+      children [
+        Solid {
+          translation 0 -0.14500001791714703 0.14999641660044746
+          children [
+            DEF bottom_wall_shape Shape {
+              appearance PBRAppearance {
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.23 0.01 0.1
+              }
+            }
+          ]
+          name "bottom_wall"
+          boundingObject USE bottom_wall_shape
+          physics Physics {
+          }
+        }
+        Solid {
+          translation 0 0.1449999820828529 0.14999641660044746
+          children [
+            DEF top_wall_shape Shape {
+              appearance PBRAppearance {
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.23 0.01 0.1
+              }
+            }
+          ]
+          name "top_wall"
+          boundingObject USE top_wall_shape
+          physics Physics {
+          }
+        }
+        Solid {
+          translation -0.11 -7.041139587148863e-08 0.1499953259997761
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0.1
+              }
+              geometry DEF left_wall Box {
+                size 0.01 0.3 0.1
+              }
+            }
+          ]
+          name "left_wall"
+          boundingObject USE left_wall
+          physics Physics {
+          }
+        }
+        Solid {
+          translation 0.11 -7.041139587148863e-08 0.1499953259997761
+          children [
+            DEF right_wall Shape {
+              appearance PBRAppearance {
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.01 0.3 0.1
+              }
+            }
+          ]
+          name "right_wall"
+          boundingObject USE right_wall
+          physics Physics {
+          }
+        }
+        Solid {
+          translation 0 -2.157930349323757e-06 -0.0004316417444404641
+          rotation 1 0 0 4.5189538742940183e-10
+          children [
+            DEF table_shape Shape {
+              appearance PBRAppearance {
+                metalness 0.1
+              }
+              geometry Box {
+                size 0.23 0.3 0.2
+              }
+            }
+          ]
+          name "table"
+          boundingObject USE table_shape
+          physics Physics {
+          }
+        }
+      ]
+    }
+  ]
+  controller "main_controller_2"
+}
