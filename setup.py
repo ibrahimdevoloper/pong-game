@@ -1,11 +1,11 @@
 from setuptools import find_packages, setup
 
-package_name = 'pong-game'
+package_name = 'pong_game'
 data_files = []
-data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name]))
+data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name+"/"]))
 data_files.append(('share/' + package_name + '/launch', ['launch/robot_launch.py']))
-data_files.append(('share/' + package_name + '/worlds', ['worlds/my_world.wbt']))
-data_files.append(('share/' + package_name + '/resource', ['resource/my_robot.urdf']))
+data_files.append(('share/' + package_name + '/worlds', ['worlds/main.1.wbt']))
+data_files.append(('share/' + package_name + '/resource', ['resource/robot.urdf']))
 data_files.append(('share/' + package_name, ['package.xml']))
 
 setup(
@@ -22,7 +22,7 @@ setup(
     # tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'my_robot_driver = pong-game.my_robot_driver:main',
+            'my_robot_driver = pong_game.my_robot_driver:main',
         ],
     },
 )
@@ -45,7 +45,7 @@ setup(
 #     tests_require=['pytest'],
 #     entry_points={
 #         'console_scripts': [
-#             'my_robot_driver = pong-game.my_robot_driver:main'
+#             'my_robot_driver = pong_game.my_robot_driver:main'
 #         ],
 #     },
 # )
