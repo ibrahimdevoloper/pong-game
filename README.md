@@ -7,7 +7,7 @@ https://docs.ros.org/en/humble/Tutorials/Advanced/Simulators/Webots/Setting-Up-S
 '''
 colcon build
 source install/local_setup.bash
-ros2 launch my_package robot_launch.py
+ros2 launch pong_game robot_launch.py
 '''
 
 ### Command to delete build files

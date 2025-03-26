@@ -2,9 +2,9 @@ from setuptools import find_packages, setup
 
 package_name = 'pong_game'
 data_files = []
-data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name+"/"]))
+data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name]))
 data_files.append(('share/' + package_name + '/launch', ['launch/robot_launch.py']))
-data_files.append(('share/' + package_name + '/worlds', ['worlds/main.1.wbt']))
+data_files.append(('share/' + package_name + '/worlds', ['worlds/main.2.wbt']))
 data_files.append(('share/' + package_name + '/resource', ['resource/robot.urdf']))
 data_files.append(('share/' + package_name, ['package.xml']))
 

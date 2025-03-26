@@ -64,10 +64,11 @@ class MyRobotDriver:
 
         # self.__left_motor.setVelocity(command_motor_left)
         # self.__right_motor.setVelocity(command_motor_right)
-        i=0
-        i+=0.01
+        self.__top_bat_position+=0.01
         if self.__top_bat_position>POSITION_HIGH:
             self.__top_bat_position=POSITION_LOW
-        else:
-            self.__top_bat_position=POSITION_HIGH
+        elif self.__top_bat_position<POSITION_LOW:
+            self.__top_bat_position=POSITION_LOW
         self.__top_bat_motor.setPosition(self.__top_bat_position)
+
+        print('top_bat_position:', self.__top_bat_position)
