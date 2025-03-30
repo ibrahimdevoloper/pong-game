@@ -14,6 +14,7 @@ from std_msgs.msg import String
 
 POSITION_HIGH = 0.19
 POSITION_LOW = 0.03
+POSITION_STEP = 0.01
 
 RACK_POSITION_HIGH = 0.025
 RACK_POSITION_LOW = 0.01
@@ -67,11 +68,11 @@ class MyRobotDriver:
         if bat_direction == "DOWN":
             self.__bottom_rack_position = False
         elif bat_direction == "RIGHT":
-            self.__bottom_bat_position += 0.01
+            self.__bottom_bat_position += POSITION_STEP
             if self.__bottom_bat_position > POSITION_HIGH:
                 self.__bottom_bat_position = POSITION_HIGH
         elif bat_direction == "LEFT":
-            self.__bottom_bat_position -= 0.01
+            self.__bottom_bat_position -= POSITION_STEP
             if self.__bottom_bat_position < POSITION_LOW:
                 self.__bottom_bat_position = POSITION_LOW
         else:
@@ -88,7 +89,7 @@ class MyRobotDriver:
 
         # self.__left_motor.setVelocity(command_motor_left)
         # self.__right_motor.setVelocity(command_motor_right)
-        self.__top_bat_position+=0.01
+        self.__top_bat_position+=POSITION_STEP
         if self.__top_bat_position>POSITION_HIGH:
             self.__top_bat_position=POSITION_LOW
         elif self.__top_bat_position<POSITION_LOW:
