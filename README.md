@@ -1,7 +1,15 @@
 # pong_game
 
+### Python Packages
+'''
+pip install keyboard pynput
+'''
+
 ### Setting up a robot simulation (Basic)
 https://docs.ros.org/en/humble/Tutorials/Advanced/Simulators/Webots/Setting-Up-Simulation-Webots-Basic.html
+
+### Setting up a robot simulation (Advanced)
+https://docs.ros.org/en/humble/Tutorials/Advanced/Simulators/Webots/Setting-Up-Simulation-Webots-Advanced.html
 
 ### Command to Launch Webots
 '''
