@@ -1,5 +1,6 @@
 import os
 import launch
+from launch_ros.actions import Node
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
 from webots_ros2_driver.webots_launcher import WebotsLauncher
@@ -21,9 +22,21 @@ def generate_launch_description():
         ]
     )
 
+    keyboard_control_publisher = Node(
+        package='pong_game',
+        executable='keyboard_control_publisher',
+        # name='keyboard_control_publisher',
+        # output='screen',
+        # arguments=[],
+        # parameters=[
+        #     {'robot_description': robot_description_path},
+        # ]
+    )
+
     return LaunchDescription([
         webots,
         my_robot_driver,
+        keyboard_control_publisher,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,

@@ -23,6 +23,7 @@ setup(
     entry_points={
         'console_scripts': [
             'my_robot_driver = pong_game.my_robot_driver:main',
+            'keyboard_control_publisher = pong_game.keyboard_control_publisher:main'
         ],
     },
 )
