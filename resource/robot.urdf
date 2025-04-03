@@ -1,6 +1,13 @@
 <?xml version="1.0" ?>
 <robot name="robot">
     <webots>
+    <device reference="camera" type="Camera">
+            <ros>
+                <topicName>/sensor_msgs/Image</topicName>
+                <topicName>/camera_info</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
         <plugin type="pong_game.my_robot_driver.MyRobotDriver" />
     </webots>
 </robot>
