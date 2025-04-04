@@ -6,7 +6,6 @@
 #     main()
 
 import rclpy
-from geometry_msgs.msg import Twist
 from std_msgs.msg import String
 
 # HALF_DISTANCE_BETWEEN_WHEELS = 0.045

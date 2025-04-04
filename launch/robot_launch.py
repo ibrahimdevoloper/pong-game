@@ -33,10 +33,23 @@ def generate_launch_description():
         # ]
     )
 
+    camera_feed_publisher = Node(
+        package='pong_game',
+        executable='camera_feed_publisher',
+    #     name='camera_feed_publisher',
+    #     output='screen',
+    #     arguments=[],
+    #     parameters=[
+    #         {'robot_description': robot_description_path},
+    #     ]
+     )
+
+
     return LaunchDescription([
         webots,
         my_robot_driver,
         keyboard_control_publisher,
+        camera_feed_publisher,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,
