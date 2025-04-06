@@ -38,5 +38,5 @@ def detectBallWitContours(frame, width, height):
     #X direction from right to left
     #Y\/
     #Y direction from top to bottom
-    return (int(x), int(y)), int(radius)
+    return (float(int(x)), float(int(y))), float(int(radius))
  

@@ -2,14 +2,17 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
+from geometry_msgs.msg import Point
 from . import ball_detection as bd
 
 class CameraFeedPublisher(Node):
     def __init__(self):
         super().__init__('camera_feed_publisher')
 
-        self.h_publisher_ = self.create_publisher(String, 'h_position', 10)
-        self.v_publisher_ = self.create_publisher(String, 'v_position', 10)
+        # self.h_publisher_ = self.create_publisher(String, 'h_position', 10)
+        # self.v_publisher_ = self.create_publisher(String, 'v_position', 10)
+        self.v_publisher_ = self.create_publisher(Point, 'position_point', 10)
+
         
         self.get_logger().info("Camera Feed Node has started.")
 
@@ -19,10 +22,18 @@ class CameraFeedPublisher(Node):
         process_result = bd.detectBallWitContours(msg.data, msg.width, msg.height)
         if process_result is not None:
             position, radius = process_result
-            self.get_logger().info(f"Ball detected at {position} with radius {radius}")
+            # self.get_logger().info(f"Ball detected at {position} with radius {radius}")
             # Publish the position and radius to the respective topics
-            self.h_publisher_.publish(String(data=str(position[0])))
-            self.v_publisher_.publish(String(data=str(position[1])))
+            # self.h_publisher_.publish(String(data=str(position[0])))
+            # self.v_publisher_.publish(String(data=str(position[1])))
+            point = Point()
+            point.x = position[0]
+            point.y = position[1]
+            point.z = radius
+            # self.get_logger().info(f"Publishing Point: {point}")
+            # self.get_logger().info(f"Publishing Point: x={point.x}, y={point.y}, z={point.z}")
+
+            self.v_publisher_.publish(point)
         else:
             self.get_logger().info("No ball detected.")
             # Process the camera image if needed

@@ -37,7 +37,7 @@ class MyRobotDriver:
         self.__top_bat_motor.setPosition(self.__top_bat_position)
 
         self.__top_rack = self.__robot.getDevice('top_rack')
-        self.__top_rack_position = False
+        self.__top_rack_position = RACK_POSITION_LOW
         self.__top_rack.setPosition(RACK_POSITION_LOW)
 
         # self.__left_motor = self.__robot.getDevice('left wheel motor')
@@ -55,10 +55,24 @@ class MyRobotDriver:
         self.__node = rclpy.create_node('my_robot_driver')
         # self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
         self.__node.create_subscription(String, 'bat_direction', self.__bat_direction_callback, 1)
+        self.__node.create_subscription(String, 'h_control', self.__h_control_callback, 1)
+        self.__node.create_subscription(String, 'v_control', self.__v_control_callback, 1)
 
-    def __cmd_vel_callback(self, twist):
-        pass
-        # self.__target_twist = twist
+    
+    def __h_control_callback(self, msg):
+        data = msg.data
+        #transform the data to a number
+        control_value = float(data)
+        self.__top_rack_position = control_value
+        
+
+    def __v_control_callback(self, msg):
+        data = msg.data
+        #transform the data to a number
+        control_value = float(data)
+        self.__top_bat_position = control_value
+
+
     def __bat_direction_callback(self, msg):
         bat_direction = msg.data
         print('__bat_direction_callback:', bat_direction)
@@ -88,12 +102,13 @@ class MyRobotDriver:
 
         # self.__left_motor.setVelocity(command_motor_left)
         # self.__right_motor.setVelocity(command_motor_right)
-        self.__top_bat_position+=POSITION_STEP
-        if self.__top_bat_position>POSITION_HIGH:
-            self.__top_bat_position=POSITION_LOW
-        elif self.__top_bat_position<POSITION_LOW:
-            self.__top_bat_position=POSITION_LOW
+        # self.__top_bat_position+=POSITION_STEP
+        # if self.__top_bat_position>POSITION_HIGH:
+        #     self.__top_bat_position=POSITION_LOW
+        # elif self.__top_bat_position<POSITION_LOW:
+        #     self.__top_bat_position=POSITION_LOW
         self.__top_bat_motor.setPosition(self.__top_bat_position)
+        self.__top_rack.setPosition(self.__top_rack_position)
 
         self.__bottom_bat_motor.setPosition(self.__bottom_bat_position)
         # print('bottom_bat_position:', self.__bottom_bat_position)

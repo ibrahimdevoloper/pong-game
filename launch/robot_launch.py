@@ -43,6 +43,17 @@ def generate_launch_description():
     #         {'robot_description': robot_description_path},
     #     ]
      )
+    
+    behaviour_control_publisher = Node(
+        package='pong_game',
+        executable='behaviour_control_publisher',
+    #     name='behaviour_control_publisher',
+    #     output='screen',
+    #     arguments=[],
+    #     parameters=[
+    #         {'robot_description': robot_description_path},
+    #     ]
+    )
 
 
     return LaunchDescription([
@@ -50,6 +61,7 @@ def generate_launch_description():
         my_robot_driver,
         keyboard_control_publisher,
         camera_feed_publisher,
+        behaviour_control_publisher,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,
