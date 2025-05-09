@@ -26,3 +26,6 @@ ros2 launch pong_game robot_launch.py
 rm -rf build/ install/ log/
 colcon build
 ```
+
+### Important note
+copy the  from  `fribe/grammars/simple/parser.grammar` and `fribe/grammars/simple/tokenizer.grammar` to `build/pong_game/build/lib/fribe/grammars/simple/parser.grammar` and `build/pong_game/build/lib/fribe/grammars/simple/tokenizer.grammar`
