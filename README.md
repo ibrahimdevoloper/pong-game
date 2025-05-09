@@ -11,6 +11,9 @@ https://docs.ros.org/en/humble/Tutorials/Advanced/Simulators/Webots/Setting-Up-S
 ### Setting up a robot simulation (Advanced)
 https://docs.ros.org/en/humble/Tutorials/Advanced/Simulators/Webots/Setting-Up-Simulation-Webots-Advanced.html
 
+### Speed Estimation & Vehicle Tracking
+https://www.youtube.com/watch?v=uWP6UjDeZvY
+
 ### Command to Launch Webots
 ```
 colcon build
