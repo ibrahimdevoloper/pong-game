@@ -39,4 +39,39 @@ def detectBallWitContours(frame, width, height):
     #Y\/
     #Y direction from top to bottom
     return (float(int(x)), float(int(y))), float(int(radius))
+
+def detectBat(frame, width, height):
+    # Webots camera image is in BGRA format, convert it to a NumPy array
+    image_array = np.frombuffer(frame, np.uint8).reshape((height, width, 4))
+
+    # Convert from BGRA (Webots) to BGR (OpenCV)
+    bgr_frame = cv.cvtColor(image_array, cv.COLOR_BGRA2BGR)
+
+    # Convert BGR to HSV for color detection
+    gray = cv.cvtColor(bgr_frame, cv.COLOR_BGR2HSV)
+    
+    gray = gray[0:720, 920:1280]
+    # for yellow
+    mask = cv.inRange(gray, (29, 50, 0), (33, 255, 255))
+    mask = cv.erode(mask, (3,2), iterations=5)
+    mask = cv.dilate(mask, (7,7), iterations=5)
+	
+  
+    blur = cv.bilateralFilter(mask, 7,75,75)
+    contours, _ = cv.findContours(blur.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    # _, contours, __ = cv.findContours(blur.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    # Create empty centre array to store centroid center of mass
+    center =   int(0), int(0)
+    # Get the largest contour and its center 
+    c = max(contours, key=cv.contourArea)
+    (x, y), radius = cv.minEnclosingCircle(c)
+    M = cv.moments(c)
+    try:
+        center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+
+    except:
+        center =   int(Height/2), int(Width/2)
+    # return cv.cvtColor(mask, cv.COLOR_GRAY2BGR)
+    detectedPosition = y*0.23/720
+    return (int(x), int(y)), detectedPosition
  

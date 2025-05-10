@@ -12,14 +12,25 @@ class CameraFeedPublisher(Node):
         # self.h_publisher_ = self.create_publisher(String, 'h_position', 10)
         # self.v_publisher_ = self.create_publisher(String, 'v_position', 10)
         self.v_publisher_ = self.create_publisher(Point, 'position_point', 10)
+        self.estimated_speed_publisher = self.create_publisher(String, 'estimated_speed', 10)
 
         
         self.get_logger().info("Camera Feed Node has started.")
 
         self.create_subscription(Image, '/robot/camera/image_color', self.camera_callback, 1)
+
+        self.previous_detected_position = 0.11
+        self.time_step = 0.1  # Default time step (in seconds)
        
     def camera_callback(self, msg):
         process_result = bd.detectBallWitContours(msg.data, msg.width, msg.height)
+        center, newPositionInCm = bd.detectBat(msg.data, msg.width, msg.height)
+        speed = abs(newPositionInCm - self.previous_detected_position)/self.time_step*100 # cm/s
+        self.previous_detected_position = newPositionInCm
+        if speed>0:
+            self.get_logger().info(f"Speed: {speed} cm/s")
+            # Publish the estimated speed
+            self.estimated_speed_publisher.publish(String(data=str(speed)))
         if process_result is not None:
             position, radius = process_result
             # self.get_logger().info(f"Ball detected at {position} with radius {radius}")
